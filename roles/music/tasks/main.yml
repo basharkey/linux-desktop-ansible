@@ -27,6 +27,12 @@
     install_recommends: no
   become: yes
 
+- name: Install MuseScore
+  flatpak:
+    name: org.musescore.MuseScore
+    state: preset
+    method: user
+
 - name: Download and extract Reaper
   unarchive:
     src: https://www.reaper.fm/files/7.x/reaper717_linux_x86_64.tar.xz
