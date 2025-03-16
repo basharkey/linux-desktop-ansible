@@ -107,7 +107,7 @@ debian_packages:
   - "feh"    			         # Image viewer
   - "evince"    			 # PDF viewer
   - "syncthing"                          # Decentralized file synchronization
-  - "clementine"                         # A music player and library organizer
+  - "strawberry"                         # Audio player and music collection organizer
   - "gstreamer1.0-libav"                 # ffmpeg plugin for gstreamer (enable playing m4a files)
   - "gscan2pdf"                          # GUI for producing a multipage PDF from a scan
   - "djvulibre-bin"                      # gscan2pdf dependency
