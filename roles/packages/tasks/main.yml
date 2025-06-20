@@ -27,20 +27,21 @@
     install_recommends: no
   become: yes
 
-- name: Check if a Nvidia GPU is installed
-  shell: lspci | grep "NVIDIA"
-  register: nvidia_gpu
-  ignore_errors: true
-
-- name: Install Nvidia drivers
-  when: nvidia_gpu.rc == 0
-  apt:
-    name:
-      - nvidia-driver
-      - nvidia-settings
-    state: present
-    install_recommends: no
-  become: yes
+- block:
+    - name: Check if a Nvidia GPU is installed
+      shell: lspci | grep "NVIDIA"
+  rescue:
+    - name: Install Nvidia drivers
+      apt:
+        name:
+          - nvidia-driver
+          - nvidia-settings
+          - nvidia-smi
+          - libnvcuvid1
+          - libnvidia-encode1
+        state: present
+        install_recommends: no
+      become: yes
 
 - name: Enable Flathub repository
   flatpak_remote:

@@ -94,6 +94,7 @@ debian_packages:
   - "qemu-utils"                         # QEMU utilities
   - "virt-manager"                       # GTK virtual machine manager
   - "gir1.2-spiceclientgtk-3.0"          # virt-manager spice viewer dependency
+  - "kdenlive"                           # non-linear video editor
   - "mpv"                                # Video player
   - "flatpak"                            # Application deployment framework for desktop apps
   - "evolution"                          # Email client
