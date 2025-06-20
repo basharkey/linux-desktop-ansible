@@ -30,22 +30,74 @@
 - name: Install MuseScore
   flatpak:
     name: org.musescore.MuseScore
-    state: preset
+    state: present
     method: user
 
-- name: Download and extract Reaper
-  unarchive:
-    src: https://www.reaper.fm/files/7.x/reaper717_linux_x86_64.tar.xz
-    dest: /tmp
-    remote_src: yes
+- name: Check if REAPER is installed
+  stat:
+    path: /usr/local/bin/reaper
+  register: reaper
 
-- name: Install Reaper
-  command: ./install-reaper.sh --install /opt --integrate-sys-desktop --usr-local-bin-symlink
-  args:
-    chdir: /tmp/reaper_linux_x86_64
+- when: not reaper.stat.executable
+  block:
+    - name: Download and extract Reaper
+      unarchive:
+        src: https://www.reaper.fm/files/7.x/reaper734_linux_x86_64.tar.xz
+        dest: /tmp
+        remote_src: yes
+
+    - name: Install Reaper
+      command: ./install-reaper.sh --install /opt --integrate-sys-desktop --usr-local-bin-symlink
+      args:
+        chdir: /tmp/reaper_linux_x86_64
+      become: yes
+
+    - name: Remove Reaper temp installation dir
+      file:
+        path: /tmp/reaper_linux_x86_64
+        state: absent
+
+- name: Install linuxsampler
+  apt:
+    deb: "{{ item }}"
+  become: yes
+  loop:
+    - https://download.linuxsampler.org/packages/debian/libgig8_4.1.0-1_amd64.deb
+    - https://download.linuxsampler.org/packages/debian/liblinuxsampler_2.1.0-1_amd64.deb
+    - https://download.linuxsampler.org/packages/debian/linuxsampler_2.1.0-1_amd64.deb
+    
+
+- name: Install qsampler for linuxsampler
+  apt:
+    name: qsampler
+    state: present
+    install_recommends: no
   become: yes
 
-- name: Remove Reaper temp installation dir
-  file:
-    path: /tmp/reaper_linux_x86_64
-    state: absent
+- name: Install unar
+  apt:
+    name: unar
+    state: present
+    install_recommends: no
+  become: yes
+
+- name: Check if maestro_concert_grand_v2.gig exists
+  stat:
+    path: "{{ HOME }}/.local/share/linuxsampler.org/maestro_concert_grand_v2/maestro_concert_grand_v2.gig"
+  register: gig
+
+- when: not gig.stat.exists
+  block:
+    - name: Download maestro concert grand piano gig for linuxsampler
+      get_url:
+        url: http://download.linuxsampler.org/instruments/pianos/maestro_concert_grand_v2.rar
+        dest: /tmp/maestro_concert_grand_v2.rar
+      register: archive
+
+    - name: Unarchive maestro_concert_grand_v2.rar
+      command: "unar -output-directory ~/.local/share/linuxsampler.org/ {{ archive.dest }}"
+
+    - name: Remove maestro_concert_grand_v2.rar
+      file:
+        path: "{{ archive.dest }}"
+        state: absent
