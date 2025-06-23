@@ -22,9 +22,10 @@
 
 - name: Copy startx script
   copy:
-    src: startx.sh
-    dest: "{{ HOME }}/startx.sh"
+    src: start-i3.sh
+    dest: /usr/local/bin/start-i3.sh
     mode: '0755'
+  become: yes
 
 - name: Copy systemd user units
   copy:
