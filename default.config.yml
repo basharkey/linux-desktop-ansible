@@ -29,3 +29,7 @@ systemd_system_units:
 vfio_bind_ids:
   - 10de:2684
   - 10de:22ba
+
+# roles/nvidia-driver
+manual_nvidia_driver_install: no
+manual_nvidia_driver_version: "570.169"

@@ -1,5 +1,5 @@
 ---
-- name: Add Debian non-free repositories
+- name: Add debian non-free repositories
   template:
     src: sources.list.j2
     dest: /etc/apt/sources.list
@@ -19,7 +19,7 @@
   include_vars:
     dir: vars
 
-- name: Install Debian packages
+- name: Install debian packages
   apt:
     name: "{{ debian_packages }}"
     update_cache: yes
@@ -27,32 +27,14 @@
     install_recommends: no
   become: yes
 
-- name: Check if a Nvidia GPU is installed
-  shell: lspci | grep -i nvidia
-  register: nvidia_gpu
-  ignore_errors: true
-
-- name: Install Nvidia drivers
-  when: nvidia_gpu.rc == 0
-  apt:
-    name:
-      - nvidia-driver
-      - nvidia-settings
-      - nvidia-smi
-      - libnvcuvid1
-      - libnvidia-encode1
-    state: present
-    install_recommends: no
-  become: yes
-
-- name: Enable Flathub repository
+- name: Enable flathub repository
   flatpak_remote:
     name: flathub
     state: present
     flatpakrepo_url: "https://flathub.org/repo/flathub.flatpakrepo"
     method: user
 
-- name: Install Flatpak packages
+- name: Install flatpak packages
   flatpak:
     name: "{{ flatpak_packages }}"
     state: present

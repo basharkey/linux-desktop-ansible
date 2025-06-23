@@ -1,0 +1,50 @@
+---
+- name: Add debian non-free repositories
+  template:
+    src: sources.list.j2
+    dest: /etc/apt/sources.list
+    mode: '0644'
+  become: yes
+
+- name: Check if an nvidia gpu is installed
+  shell: lspci | grep -i nvidia
+  register: nvidia_gpu
+  ignore_errors: true
+
+- name: Install nvidia driver via apt
+  when: nvidia_gpu.rc == 0 and not manual_nvidia_driver_install
+  apt:
+    name:
+      - nvidia-driver
+      - nvidia-settings
+      - nvidia-smi
+      - libnvcuvid1
+      - libnvidia-encode1
+    state: present
+    install_recommends: no
+  become: yes
+
+- name: Install nvidia driver manually
+  when: nvidia_gpu.rc == 0 and manual_nvidia_driver_install
+  block:
+    - name: Check if nvidia driver is installed
+      command: which nvidia-smi
+
+  rescue:
+    - name: Download nvidia driver
+      get_url:
+        url: "https://us.download.nvidia.com/XFree86/Linux-x86_64/{{ nvidia_driver_version }}/NVIDIA-Linux-x86_64-{{ nvidia_driver_version }}.run"
+        dest: "/tmp/NVIDIA-Linux-x86_64-{{ nvidia_driver_version }}.run" 
+        mode: '0755'
+
+    - name: Install dkms
+      apt:
+        name:
+          - dkms
+          - libc6-dev
+          - linux-headers-amd64
+        install_recommends: no
+        state: present
+
+    - name: Install nvidia driver with dkms
+      shell: "/tmp/NVIDIA-Linux-x86_64-{{ nvidia_driver_version }}.run --silent --no-nouveau-check --dkms"
