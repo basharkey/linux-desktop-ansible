@@ -15,6 +15,6 @@
     - { role: "nvidia-driver", tags: ["desktop", "music"] }
     - { role: "home", tags: ["desktop", "music"] }
     - { role: "music", tags: "music" }
-    - { role: "bridge-interface", tags: "desktop" }
+    - { role: "bridge-interface", tags: "" }
     - { role: "vfio", tags: "desktop" }
-    - { role: "vm", tags: "desktop" }
+    - { role: "vm", tags: "" }

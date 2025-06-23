@@ -1,5 +1,5 @@
 ---
-# roles/sway
+# roles/home
 user_groups:
   - sudo
   - libvirt
