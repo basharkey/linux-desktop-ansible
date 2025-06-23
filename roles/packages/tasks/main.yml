@@ -15,10 +15,6 @@
     mode: '0644'
   become: yes
 
-- name: Load package vars
-  include_vars:
-    dir: vars
-
 - name: Install debian packages
   apt:
     name: "{{ debian_packages }}"

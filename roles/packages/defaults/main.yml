@@ -20,7 +20,6 @@ debian_packages:
   - "alacritty"                          # OpenGL terminal emulator
   - "policykit-1-gnome"                  # GTK authentication agent for PolicyKit
   - "xdg-desktop-portal-gnome"           # Fixes Flatpaks not being able to access dbus
-  # - "picom"                              # X11 compositor, provides vsync to prevent screen tearing
 
   # CLI utilities
   - "vim"                                # vim
@@ -95,8 +94,8 @@ debian_packages:
   - "virt-manager"                       # GTK virtual machine manager
   - "gir1.2-spiceclientgtk-3.0"          # virt-manager spice viewer dependency
   - "kdenlive"                           # non-linear video editor
-  - "mediainfo"                          # command-line utility for reading information from audio/video files
-  - "frei0r-plugins"                     # minimalistic plugin API for video effects, plugins collection
+  - "mediainfo"                          # kdenlive dependency
+  - "frei0r-plugins"                     # kdenlive dependency
   - "mpv"                                # Video player
   - "flatpak"                            # Application deployment framework for desktop apps
   - "evolution"                          # Email client
@@ -124,8 +123,10 @@ debian_packages:
   - "gcc"                                # Needed to build sqlite3-api module for emacs
   - "flameshot"                          # Screenshot tool
 
-debian_laptop_packages:
-  - "iwl7260-firmware"    		# Firmware for Intel(R) Wireless WiFi Link 726x/8000/9000 Series Adapters
-  - "NetworkManager-wifi"    		# Wifi plugin for NetworkManager
-  - "tlp"    				# Optimize laptop battery life
-  - "light"    				# Control backlight controllers
+flatpak_packages:
+  - "com.spotify.Client"                 # Online music streaming service
+  - "com.discordapp.Discord"             # Messaging, Voice, and Video Client
+  - "io.github.spacingbat3.webcord"      # A Discord and Fosscord web-based client made with the electron
+  - "org.musicbrainz.Picard"             # MusicBrainz's music tagger
+  - "org.gnome.gitlab.dqpb.GMetronome"   # Metronome
+  - "org.chromium.Chromium"              # The web browser from Chromium project
