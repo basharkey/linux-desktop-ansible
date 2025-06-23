@@ -7,6 +7,7 @@
   notify:
     - Apt update cache
     - Apt full upgrade
+    - Apt autoremove
   become: yes
 
 - name: Configure apt to not install recommended packages

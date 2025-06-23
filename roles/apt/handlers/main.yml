@@ -5,10 +5,11 @@
   become: yes
 
 - name: Apt full upgrade
-  block:
-    - apt:
-        upgrade: full
+  apt:
+    upgrade: full
+  become: yes
 
-    - apt:
-        autoremove: yes
+- name: Apt autoremove
+  apt:
+    autoremove: yes
   become: yes
