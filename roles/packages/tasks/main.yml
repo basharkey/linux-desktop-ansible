@@ -10,6 +10,7 @@
   apt:
     upgrade: full
     update_cache: yes
+  become: yes
 
 - name: Configure apt to not install recommended packages
   lineinfile:
