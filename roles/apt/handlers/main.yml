@@ -1,0 +1,14 @@
+---
+- name: Apt update cache
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Apt full upgrade
+  block:
+    - apt:
+        upgrade: full
+
+    - apt:
+        autoremove: yes
+  become: yes
