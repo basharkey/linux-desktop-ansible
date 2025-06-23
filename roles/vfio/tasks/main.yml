@@ -30,18 +30,18 @@
     enabled: yes
   become: yes
 
-- name: Enable default NAT libvirt network at boot
+- name: Enable default nat libvirt network at boot
   command: virsh net-autostart default
   become: yes
 
-- name: Copy VFIO modules config
+- name: Copy vfio modules config
   copy:
     src: vfio-modules.conf
     dest: /etc/modules-load.d/vfio.conf
   register: vfio_modules
   become: yes
 
-- name: Template VFIO module options config
+- name: Template vfio module options config
   template:
     src: vfio-options.conf.j2
     dest: /etc/modprobe.d/vfio.conf

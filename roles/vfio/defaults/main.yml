@@ -1,0 +1,3 @@
+vfio_bind_ids:
+  - 10de:2684
+  - 10de:22ba
