@@ -1,10 +1,15 @@
 ---
-- name: Add debian non-free repositories
+- name: Change debian release to testing and add non-free repositories
   template:
     src: sources.list.j2
     dest: /etc/apt/sources.list
     mode: '0644'
   become: yes
+
+- name: Upgrade current packages to new release
+  apt:
+    upgrade: full
+    update_cache: yes
 
 - name: Configure apt to not install recommended packages
   lineinfile:
@@ -18,7 +23,6 @@
 - name: Install debian packages
   apt:
     name: "{{ debian_packages }}"
-    update_cache: yes
     state: present
     install_recommends: no
   become: yes
