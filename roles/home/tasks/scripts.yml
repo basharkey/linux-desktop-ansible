@@ -1,18 +1,4 @@
 ---
-- name: Install toggle dependencies
-  apt:
-    name: festival
-    state: present
-    install_recommends: no
-  become: yes
-
-- name: Install toggle
-  copy:
-    src: toggle.sh
-    dest: /usr/local/bin/toggle.sh
-    mode: '0755'
-  become: yes
-
 - name: Install wayweather dependencies
   apt:
     name:
@@ -27,21 +13,5 @@
   get_url:
     url: https://raw.githubusercontent.com/basharkey/wayweather/main/wayweather.py
     dest: /usr/local/bin/wayweather.py
-    mode: '0755'
-  become: yes
-
-- name: Install spotifyvctl dependencies
-  apt:
-    name:
-      - python3
-      - pulseaudio-utils
-    state: present
-    install_recommends: no
-  become: yes
-
-- name: Install spotifyvctl
-  get_url:
-    url: https://raw.githubusercontent.com/basharkey/spotifyvctl/main/spotifyvctl.py
-    dest: /usr/local/bin/spotifyvctl.py
     mode: '0755'
   become: yes
