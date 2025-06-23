@@ -1,37 +1,20 @@
 ---
-- name: Change default target to multi-user.target
-  file:
-    src: /usr/lib/systemd/system/multi-user.target
-    dest: /etc/systemd/system/default.target
-    state: link
-  become: yes
+- name: Copy distribution dotfiles
+  copy:
+    src: dotfiles/
+    dest: "{{ HOME }}/"
 
-- name: Create getty service overrides directory
-  file:
-    path: /etc/systemd/system/getty@tty1.service.d
-    state: directory
-    mode: '0755'
-  become: yes
-
-- name: Template getty service autologin config
+- name: Template gtk bookmarks
   template:
-    src: autologin.conf.j2
-    dest: /etc/systemd/system/getty@tty1.service.d/autologin.conf
+    src: bookmarks.j2
+    dest: "{{ HOME }}/.config/gtk-3.0/bookmarks"
     mode: '0644'
-  become: yes
 
-- name: Copy startx script
+- name: Copy system config files
   copy:
-    src: start-i3.sh
-    dest: /usr/local/bin/start-i3.sh
-    mode: '0755'
+    src: system/
+    dest: /
   become: yes
-
-- name: Copy systemd user units
-  copy:
-    src: systemd-user-units/
-    dest: "{{ HOME }}/.config/systemd/user"
-    mode: '0644'
 
 - name: Enable systemd user units
   systemd:
@@ -63,58 +46,46 @@
     mode: '0755'
   loop: "{{ user_dirs }}"
 
-- name: Create gtk bookmarks dir
-  file:
-    path: "{{ HOME }}/.config/gtk-3.0"
-    state: directory
-    mode: '0755'
+# - name: Check if local dotfiles repo already exists
+#   stat:
+#     path: "{{ HOME }}/dotfiles"
+#   register: dotfiles
 
-- name: Template gtk bookmarks
-  template:
-    src: bookmarks.j2
-    dest: "{{ HOME }}/.config/gtk-3.0/bookmarks"
-    mode: '0644'
+# - name: Clone/update dotfiles repo
+#   git:
+#     repo: https://github.com/basharkey/dotfiles.git
+#     dest: "{{ HOME }}/dotfiles"
 
-- name: Check if local dotfiles repo already exists
-  stat:
-    path: "{{ HOME }}/dotfiles"
-  register: dotfiles
+# - name: Set dotfiles repo remote origin to SSH URI
+#   command: git remote set-url origin git@github.com:basharkey/dotfiles.git
+#   args:
+#     chdir: "{{ HOME }}/dotfiles"
 
-- name: Clone/update dotfiles repo
-  git:
-    repo: https://github.com/basharkey/dotfiles.git
-    dest: "{{ HOME }}/dotfiles"
+# - name: Copy user dotfiles
+#   when: not dotfiles.stat.isdir is defined
+#   command: "./install.sh -e user"
+#   args:
+#     chdir: "{{ HOME }}/dotfiles"
 
-- name: Set dotfiles repo remote origin to SSH URI
-  command: git remote set-url origin git@github.com:basharkey/dotfiles.git
-  args:
-    chdir: "{{ HOME }}/dotfiles"
+# - name: Copy user dotfiles with overrides
+#   when: not dotfiles.stat.isdir is defined and override is defined
+#   command: "./install.sh -e user -o {{ override }}"
+#   args:
+#     chdir: "{{ HOME }}/dotfiles"
 
-- name: Copy user dotfiles
-  when: not dotfiles.stat.isdir is defined
-  command: "./install.sh -e user"
-  args:
-    chdir: "{{ HOME }}/dotfiles"
+# - name: Copy system dotfiles
+#   when: not dotfiles.stat.isdir is defined
+#   command: "./install.sh -e system"
+#   args:
+#     chdir: "{{ HOME }}/dotfiles"
+#   become: yes
 
-- name: Copy user dotfiles with overrides
-  when: not dotfiles.stat.isdir is defined and override is defined
-  command: "./install.sh -e user -o {{ override }}"
-  args:
-    chdir: "{{ HOME }}/dotfiles"
-
-- name: Copy system dotfiles
-  when: not dotfiles.stat.isdir is defined
-  command: "./install.sh -e system"
-  args:
-    chdir: "{{ HOME }}/dotfiles"
-  become: yes
-
-- name: Copy system dotfiles with overrides
-  when: not dotfiles.stat.isdir is defined and override is defined
-  command: "./install.sh -e system -o {{ override }}"
-  args:
-    chdir: "{{ HOME }}/dotfiles"
-  become: yes
+# - name: Copy system dotfiles with overrides
+#   when: not dotfiles.stat.isdir is defined and override is defined
+#   command: "./install.sh -e system -o {{ override }}"
+#   args:
+#     chdir: "{{ HOME }}/dotfiles"
+#   become: yes
 
 - name: Run lm-sensors auto detection for i3block temperature module
   command: sensors-detect --auto
@@ -131,4 +102,25 @@
     mode: '0644'
   notify:
     - Reload udev rules
+  become: yes
+
+- name: Change default target to multi-user.target
+  file:
+    src: /usr/lib/systemd/system/multi-user.target
+    dest: /etc/systemd/system/default.target
+    state: link
+  become: yes
+
+- name: Create getty service overrides directory
+  file:
+    path: /etc/systemd/system/getty@tty1.service.d
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Template getty service autologin config
+  template:
+    src: autologin.conf.j2
+    dest: /etc/systemd/system/getty@tty1.service.d/autologin.conf
+    mode: '0644'
   become: yes

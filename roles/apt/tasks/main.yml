@@ -7,7 +7,7 @@
   register: apt_sources
   become: yes
 
-- name: Upgrade debian distrobution
+- name: Upgrade debian distribution
   when: apt_sources.changed
   block:
     - name: Apt update cache
