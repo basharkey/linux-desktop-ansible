@@ -38,7 +38,7 @@
   copy:
     src: vfio-modules.conf
     dest: /etc/modules-load.d/vfio.conf
-  register: vfio_modules
+  notify: Update initramfs
   become: yes
 
 - name: Template vfio module options config
@@ -46,12 +46,7 @@
     src: vfio-options.conf.j2
     dest: /etc/modprobe.d/vfio.conf
     mode: '0644'
-  register: vfio_options
-  become: yes
-
-- name: Update initramfs
-  when: vfio_modules.changed or vfio_options.changed
-  command: update-initramfs -u
+  notify: Update initramfs
   become: yes
 
 - name: Create virtio-win dir

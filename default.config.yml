@@ -6,15 +6,11 @@ user_groups:
   - lpadmin
 
 user_dirs:
-  - Documents
   - Downloads
-  - Pictures
-  - Videos
-  - Music
   - Desktop
   - Templates
   - Public
-  - projects
+  - Sync
 
 systemd_user_units:
   - ssh-agent.service
@@ -27,9 +23,9 @@ systemd_system_units:
 # roles/vfio
 # lspci -nn
 vfio_bind_ids:
-  - 10de:2684
-  - 10de:22ba
+  - 10de:1cb2
+  - 10de:0fb9
 
 # roles/nvidia-driver
-manual_nvidia_driver_install: no
+manual_nvidia_driver_install: yes
 manual_nvidia_driver_version: "570.169"

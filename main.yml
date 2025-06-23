@@ -9,6 +9,9 @@
       include_vars: "{{ item }}"
       with_fileglob:
         - "{{ playbook_dir }}/config.yml"
+      tags:
+        - desktop
+        - music
 
   roles:
     - { role: "packages", tags: ["desktop", "music"] }
