@@ -4,10 +4,23 @@
     src: sources.list.j2
     dest: /etc/apt/sources.list
     mode: '0644'
-  notify:
-    - Apt update cache
-    - Apt full upgrade
-    - Apt autoremove
+  register: apt_sources
+  become: yes
+
+- name: Upgrade debian distrobution
+  when: apt_sources.changed
+  block:
+    - name: Apt update cache
+      apt:
+        update_cache: yes
+
+    - name: Apt full upgrade
+      apt:
+        upgrade: full
+
+    - name: Apt autoremove
+      apt:
+        autoremove: yes
   become: yes
 
 - name: Configure apt to not install recommended packages
