@@ -1,1 +1,20 @@
 ---
+user_groups:
+  - sudo
+  - libvirt
+  - lpadmin
+
+user_dirs:
+  - Downloads
+  - Desktop
+  - Templates
+  - Public
+  - Sync
+
+systemd_user_units:
+  - ssh-agent.service
+  - syncthing.service
+  - emacs.service
+
+systemd_system_units:
+  - cups.service
