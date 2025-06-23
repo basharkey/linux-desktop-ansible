@@ -78,7 +78,9 @@ debian_packages:
   - "fonts-noto-unhinted"
 
   # GUI applications
-  - "firefox-esr"                        # firefox
+  - "firefox-esr"                        # Firefox
+  - "nvidia-vaapi-driver"                # Firefox/Nvidia hardware video decoding dependency
+  - "vainfo"                             # VA-API info program
   - "pcmanfm-qt"                         # File manager
   - "xarchiver"                          # Unzip utility for GTK file managers
   - "gvfs-fuse"                          # gvfs
