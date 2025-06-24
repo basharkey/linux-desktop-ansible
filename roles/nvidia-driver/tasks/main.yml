@@ -56,7 +56,7 @@
         state: present
 
     - name: Install nvidia driver with dkms
-      shell: "/tmp/NVIDIA-Linux-x86_64-{{ manual_nvidia_driver_version }}.run --silent --no-nouveau-check --dkms"
+      shell: "/tmp/NVIDIA-Linux-x86_64-{{ manual_nvidia_driver_version }}.run --silent --no-nouveau-check --skip-module-load --dkms"
 
     - name: Enable nvidia drm kernel mode setting
       lineinfile:
