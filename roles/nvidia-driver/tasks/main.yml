@@ -17,7 +17,8 @@
 
     - name: Reboot if current running kernel doesn't match latest kernel headers
       when: kernel.stdout != headers.stdout
-      reboot:
+      command: reboot
+      become: yes
 
 - name: Install nvidia driver via apt
   when: nvidia_gpu.rc == 0 and not manual_nvidia_driver_install
