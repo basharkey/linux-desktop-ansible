@@ -68,9 +68,11 @@
       notify: Update initramfs
 
     - name: Disable nouveau driver
-      lineinfile:
+      blockinfile:
         path: /etc/modprobe.d/blacklist-nouveau.conf
-        line: blacklist nouveau
+        block: |
+          options nouveau modeset=0
+          blacklist nouveau
         state: present
         create: true
         mode: '0644'
