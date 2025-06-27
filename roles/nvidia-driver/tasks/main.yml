@@ -66,6 +66,15 @@
         create: true
         mode: '0644'
       notify: Update initramfs
+
+    - name: Disable nouveau driver
+      lineinfile:
+        path: /etc/modprobe.d/blacklist-nouveau.conf
+        line: blacklist nouveau
+        state: present
+        create: true
+        mode: '0644'
+      notify: Update initramfs
   become: yes
 
 - name: Install nvidia-vaapi-driver
