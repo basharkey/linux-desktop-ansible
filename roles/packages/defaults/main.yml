@@ -68,6 +68,7 @@ debian_packages:
   - "adwaita-qt6"                        # Adwaita Qt6 theme
   - "qt5ct"                              # Qt5 Configuration Tool
   - "qt6ct"                              # Qt6 Configuration Tool
+  - "qt6-svg-plugins"                    # breeze-icon-theme dependency
   - "fonts-noto-cjk"
   - "fonts-noto-cjk-extra"
   - "fonts-noto-color-emoji"
