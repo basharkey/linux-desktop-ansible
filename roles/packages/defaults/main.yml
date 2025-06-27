@@ -64,6 +64,7 @@ debian_packages:
 
   # Themes and fonts
   - "gnome-themes-extra"                 # Adwaita-dark
+  - "adwaita-icon-theme-legacy"          # Fallback icons for legacy applications
   - "adwaita-qt"                         # Adwaita Qt5 theme
   - "adwaita-qt6"                        # Adwaita Qt6 theme
   - "qt5ct"                              # Qt5 Configuration Tool
