@@ -1,4 +1,18 @@
 ---
+- name: Install qemu/kvm
+  apt:
+    name:
+      - qemu-system                # QEMU system emulation binaries
+      - libvirt-daemon-system      # libvirt daemon
+      - dnsmasq                    # libvirt networking dependency
+      - ovmf                       # UEFI firmware for virtual machines
+      - qemu-utils                 # QEMU utilities
+      - virt-manager               # GTK virtual machine manager
+      - gir1.2-spiceclientgtk-3.0  # virt-manager spice viewer dependency
+    state: present
+    install_recommends: no
+  become: yes
+
 - name: Grub enable IOMMU
   block:
     - name: Check if IOMMU enabled in grub config

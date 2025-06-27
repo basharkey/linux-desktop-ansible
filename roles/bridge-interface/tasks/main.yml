@@ -1,4 +1,11 @@
 ---
+- name: Install bridge-utils
+  apt:
+    name: bridge-utils
+    state: present
+    install_recommends: no
+  become: yes
+
 - name: Copy br_netfilter kernel module config
   copy:
     src: br_netfilter.conf

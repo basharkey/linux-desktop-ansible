@@ -67,3 +67,13 @@
         mode: '0644'
       notify: Update initramfs
   become: yes
+
+- name: Install nvidia-vaapi-driver
+  when: nvidia_gpu.rc == 0
+  apt:
+    name:
+      - nvidia-vaapi-driver
+      - vainfo
+    state: present
+    install_recommends: no
+  become: yes
