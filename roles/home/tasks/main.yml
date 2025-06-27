@@ -16,6 +16,12 @@
     dest: /
   become: yes
 
+- name: Make custom binaries executable
+  file:
+    path: /usr/local/bin/
+    mode: '0755'
+    recurse: yes
+
 - name: Enable systemd user units
   systemd:
     daemon_reload: yes
