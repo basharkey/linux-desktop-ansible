@@ -99,6 +99,7 @@ debian_packages:
   - "gnome-keyring"                      # Gnome keyring daemon
   - "blueman"                            # GTK bluetooth manager
   - "libreoffice"                        # Office suite
+  - "libreoffice-qt6"                    # LibreOffice qt6 integration
   - "gimp"    				 # Photo editor
   - "feh"    			         # Image viewer
   - "evince"    			 # PDF viewer
