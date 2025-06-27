@@ -12,6 +12,7 @@
 
   roles:
     - { role: "packages", tags: ["desktop", "music"] }
+    - { role: "steam", tags: "desktop" }
     - { role: "nvidia-driver", tags: ["desktop", "music"] }
     - { role: "home", tags: ["desktop", "music"] }
     - { role: "music", tags: "music" }
