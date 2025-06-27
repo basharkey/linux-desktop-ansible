@@ -67,6 +67,7 @@ debian_packages:
   - "adwaita-qt"                         # Adwaita Qt5 theme
   - "adwaita-qt6"                        # Adwaita Qt6 theme
   - "qt5ct"                              # Qt5 Configuration Tool
+  - "qt6ct"                              # Qt6 Configuration Tool
   - "fonts-noto-cjk"
   - "fonts-noto-cjk-extra"
   - "fonts-noto-color-emoji"
