@@ -23,4 +23,5 @@
       user:
         name: "{{ USER }}"
         groups: video,audio
+        append: yes
   become: yes

@@ -44,6 +44,7 @@
   user:
     name: "{{ USER }}"
     groups: "{{ user_groups }}"
+    append: yes
   become: yes
 
 - name: Create user dirs

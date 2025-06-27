@@ -1,8 +1,6 @@
 ---
 # roles/home
 user_groups:
-  - sudo
-  - libvirt
   - lpadmin
 
 user_dirs:

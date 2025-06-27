@@ -13,6 +13,13 @@
     install_recommends: no
   become: yes
 
+- name: Add user to libvirt group
+  user:
+    name: "{{ USER }}"
+    groups: libvirt
+    append: yes
+  become: yes
+
 - name: Grub enable IOMMU
   block:
     - name: Check if IOMMU enabled in grub config
