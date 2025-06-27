@@ -21,6 +21,7 @@
     path: /usr/local/bin/
     mode: '0755'
     recurse: yes
+  become: yes
 
 - name: Enable systemd user units
   systemd:
