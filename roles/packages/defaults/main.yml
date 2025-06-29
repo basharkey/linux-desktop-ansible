@@ -49,6 +49,7 @@ debian_packages:
   - "yt-dlp"                             # YouTube downloader
   - "ffmpeg"                             # ffmpeg
   - "jq"                                 # lightweight and flexible command-line JSON processor
+  - "ntfs-3g"                            # read/write NTFS driver for FUSE
 
   # Sound server
   - "pipewire"                           # Media server
