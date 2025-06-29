@@ -18,7 +18,7 @@ debian_packages:
   - "dunst"                              # Notification daemon
   - "suckless-tools"                     # Minimal tools for window managers
   - "alacritty"                          # OpenGL terminal emulator
-  # - "policykit-1-gnome"                  # GTK authentication agent for PolicyKit
+  - "mate-polkit-bin"                    # MATE authentication agent for PolicyKit-1
   - "xdg-desktop-portal-gnome"           # Fixes Flatpaks not being able to access dbus
 
   # CLI utilities
