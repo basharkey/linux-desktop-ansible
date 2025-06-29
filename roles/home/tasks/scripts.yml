@@ -16,17 +16,12 @@
     mode: '0755'
   become: yes
 
-- name: Check if music scripts are installed
-  stat:
-    path: "/usr/local/bin/{{ item }}"
-  register: "{{ item }}"
-  loop:
-    - "playlist_add_album.py"
-    - "process_album.py"
-
 - name: Install music scripts
-  when: not "playlist_add_album.py".exists or not "process_album.py".exists
   block:
+    - name: Check if music scripts are installed
+      shell: which playlist_add_album.py && which process_album.py
+
+  rescue:
     - name: Clone repo
       git:
         repo: https://github.com/basharkey/music-processing-scripts.git
@@ -37,5 +32,3 @@
       args:
         chdir: /tmp/music-processing-scripts
       become: yes
-    
-

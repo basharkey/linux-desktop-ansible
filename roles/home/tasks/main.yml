@@ -18,9 +18,12 @@
 
 - name: Make custom binaries executable
   file:
-    path: /usr/local/bin/
+    path: "{{ item }}"
     mode: '0755'
     recurse: yes
+  loop:
+    - /usr/local/bin/
+    - "{{ HOME }}/.config/i3/scripts/"
   become: yes
 
 - name: Enable systemd user units

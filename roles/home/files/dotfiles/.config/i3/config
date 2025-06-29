@@ -240,5 +240,6 @@ exec --no-startup-id redshift -l manual -c $HOME/.config/redshift.conf
 exec --no-startup-id flameshot
 
 bindsym $mod+Shift+s exec flameshot gui
+bindsym $mod+Control+r exec $HOME/.config/i3/scripts/toggle.sh redshift
 
 include $HOME/.config/i3/workspaces/config
