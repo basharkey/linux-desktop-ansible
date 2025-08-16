@@ -1,7 +1,7 @@
 # Allow use of virsh if user is a part of libvirt group
 export LIBVIRT_DEFAULT_URI=qemu:///system
 
-# Fix dissapearing mouse cursor for VMs (systems without GPU acceleration)
+# Fix disappearing mouse cursor for VMs (systems without GPU acceleration)
 # export WLR_NO_HARDWARE_CURSORS=1
 
 # GTK4 theme fix
@@ -15,6 +15,9 @@ export SAL_USE_VCLPLUGIN=qt6
 
 # Fix Java apps such as OWASP ZAP only showing a blank screen
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Fix Steam games not launching consistently (set Vulkan ICD location for Nvidia)
+export VK_ICD_FILENAMES=/etc/vulkan/icd.d/nvidia_icd.json
 
 # Set SSH agent socket env var for both the user session and systemd user session
 # must be set for both as ssh-agent is run via systemd user service
