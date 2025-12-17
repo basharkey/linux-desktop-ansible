@@ -102,6 +102,7 @@ debian_packages:
   - "blueman"                            # GTK bluetooth manager
   - "libreoffice"                        # Office suite
   - "libreoffice-qt6"                    # LibreOffice qt6 integration
+  - "hunspell-en-ca"                     # English (Canada) dictionary for hunspell
   - "gimp"    				 # Photo editor
   - "feh"    			         # Image viewer
   - "evince"    			 # PDF viewer
