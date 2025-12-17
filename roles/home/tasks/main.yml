@@ -6,8 +6,14 @@
 
 - name: Template gtk bookmarks
   template:
-    src: bookmarks.j2
+    src: gtk-bookmarks.j2
     dest: "{{ HOME }}/.config/gtk-3.0/bookmarks"
+    mode: '0644'
+
+- name: Template qt bookmarks
+  template:
+    src: qt-bookmarks.j2
+    dest: "{{ HOME }}/.config/QtProject.conf"
     mode: '0644'
 
 - name: Copy system config files
@@ -106,10 +112,10 @@
   include_tasks:
     file: scripts.yml
 
-- name: Setup bose qc 35 ii easyeffects udev rules
+- name: Setup bose  easyeffects udev rules
   template:
-    src: 50-bose-qc-35-ii.rules.j2
-    dest: /etc/udev/rules.d/50-bose-qc-35-ii.rules
+    src: 50-bose.rules.j2
+    dest: /etc/udev/rules.d/50-bose.rules
     mode: '0644'
   notify:
     - Reload udev rules
