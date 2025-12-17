@@ -51,6 +51,13 @@
     enabled: yes
   become: yes
 
+- name: Disable dnsmasq so default libvirt network can start
+  systemd:
+    name: dnsmasq
+    state: stopped
+    enabled: no
+  become: yes
+
 - name: Enable default nat libvirt network at boot
   command: virsh net-autostart default
   become: yes
