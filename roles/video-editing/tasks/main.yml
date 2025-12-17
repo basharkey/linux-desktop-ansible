@@ -1,0 +1,33 @@
+# https://interfacinglinux.com/2024/03/26/davinci-resolve-18-on-debian-12/
+---
+- name: Install Gyroflow
+  get_url:
+    url: "https://github.com/gyroflow/gyroflow/releases/download/v{{ gyroflow_version }}/Gyroflow-linux64.AppImage"
+    dest: /usr/local/bin/gyroflow
+    mode: '0755'
+  become: yes
+
+- name: Check if the Davinci Resolve installer exists
+  find:
+    path: "{{ playbook_dir }}/"
+    file_type: file
+    recurse: yes
+    use_regex: yes
+    patterns: "DaVinci
+
+- name: Copy Gyroflow desktop file
+  copy:
+    src: Gyroflow.desktop
+    dest: "{{ HOME }}/.local/share/applications/Gyroflow.desktop"
+    mode: '0644'
+
+- name: Install Davinci Resolve dependencies
+  apt:
+    name:
+      - unzip
+      - fakeroot
+      - libglu1-mesa
+      - pipewire-alsa
+    state: present
+    install_recommends: no
+  become: yes
