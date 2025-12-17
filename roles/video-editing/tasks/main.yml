@@ -13,7 +13,7 @@
     file_type: file
     recurse: yes
     use_regex: yes
-    patterns: "DaVinci
+    patterns: "DaVinci"
 
 - name: Copy Gyroflow desktop file
   copy:
